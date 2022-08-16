@@ -8,14 +8,25 @@ import {useState} from "react";
 
 const Basket = () => {
     const books = JSON.parse(localStorage.getItem('basketItems') ?? "[]");
-    const [updatedBooks, setUpdatedProduct] = useState(books);
+    const [updatedBooks, setUpdatedBooks] = useState(books);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const setProducts = () => {
-            const products = JSON.parse(localStorage.getItem('basketItems') ?? "[]");
-            setUpdatedProduct(products);
+            const books = JSON.parse(localStorage.getItem('basketItems') ?? "[]");
+            setUpdatedBooks(books);
+            calculateTotalPrice(books);
         }
-        window.addEventListener('storage', setProducts);
+        const calculateTotalPrice = (books: any) => {
+            let total =0;  
+        for (let i = 0; i < books.length; i++) {   
+            let price= books[i].price.substring(1);
+             total=total+parseFloat(price);
+         }
+            setTotalPrice(total);
+        }
+        calculateTotalPrice(books);
+         window.addEventListener('storage', setProducts);
         return () => {
             window.removeEventListener('storage', setProducts);
         }
@@ -48,7 +59,7 @@ const Basket = () => {
                 <div style={{display: "flex", justifyContent: "end"}}>
                     <div style={{height: "40px", marginBottom: "1rem"}}/>
                 </div>
-                <BasketSummary/>
+                <BasketSummary totalPrice={totalPrice}/>
             </SummaryContainer>
         </Container>
     );

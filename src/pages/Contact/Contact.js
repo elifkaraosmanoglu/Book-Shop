@@ -135,7 +135,7 @@ const useStyles = createStyles((theme) => {
                         />
 
                         <Group position="right" mt="md">
-                            <Button type="submit" className={classes.control}>
+                            <Button type="submit" className={classes.control} style={{backgroundColor: "#e58f23"}}>
                                 Send message
                             </Button>
                         </Group>
