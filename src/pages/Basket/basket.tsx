@@ -30,7 +30,7 @@ const Basket = () => {
         return () => {
             window.removeEventListener('storage', setProducts);
         }
-    }, []);
+    }, [books]);
 
 
     return (
